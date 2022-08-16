@@ -2,7 +2,6 @@
 
 const { ethers } = require("hardhat");
 
-// eth unit parser
 function parseEth(amount, unit) {
     if (unit == undefined) {
         unit = "ether";

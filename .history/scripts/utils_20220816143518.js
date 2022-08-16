@@ -2,7 +2,6 @@
 
 const { ethers } = require("hardhat");
 
-// eth unit parser
 function parseEth(amount, unit) {
     if (unit == undefined) {
         unit = "ether";
@@ -15,7 +14,6 @@ async function balanceToHex(amount) {
     return balance;
 }
 
-// returns the current block timestamp
 async function getBlockchainTime(block="latest") {
     if (block == "latest") {
         return (await ethers.provider.getBlock("latest")).timestamp;
@@ -24,7 +22,6 @@ async function getBlockchainTime(block="latest") {
     }  
 }
 
-// sets the block timestamp and mine the blocks till that
 async function setBlockchainTime(newTime, mine) {
     if (typeof mine === "undefined") {
         mine = true;

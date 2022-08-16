@@ -16,7 +16,7 @@ async function attack(vulnerable,attacker) {
     const ExploitFactory = await hre.ethers.getContractFactory("Exploit");
     let exploit = await ExploitFactory.deploy(vulnerable.address);
 
-    console.log("===\n EXPLOIT START \n===");
+    console.log("===\n EXPLOIT START \n====");
 
     await exploit.connect(attacker).deposit({value: parseEth('50','ether')});
 

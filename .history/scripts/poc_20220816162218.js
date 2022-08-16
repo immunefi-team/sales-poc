@@ -2,7 +2,8 @@ const { expect } = require("chai");
 const hre = require("hardhat");
 
 const { parseEth,balanceToHex,getBlockchainTime,setBlockchainTime } = require("./utils.js");
-const seven_days_to_seconds = 7 * 24 * 60 * 60; // 7 days in seconds.
+const seven_days_to_seconds = 7 * 24 * 60 * 60;
+
 
 async function deployVulnerable(deployer) {
     const VulnerableFactory = await hre.ethers.getContractFactory("Vulnerable",deployer);
@@ -16,9 +17,8 @@ async function attack(vulnerable,attacker) {
     const ExploitFactory = await hre.ethers.getContractFactory("Exploit");
     let exploit = await ExploitFactory.deploy(vulnerable.address);
 
-    console.log("===\n EXPLOIT START \n===");
-
     await exploit.connect(attacker).deposit({value: parseEth('50','ether')});
+
 
     await setBlockchainTime(await getBlockchainTime() + seven_days_to_seconds + 100000);
     await exploit.connect(attacker).startExploit(parseEth('50','ether'));
@@ -55,6 +55,8 @@ async function main() {
     let currentBlockTime = await getBlockchainTime();
     console.log("[1] Current block timestamp before block fast-forward : ",currentBlockTime);
 
+    let seven_days_to_seconds = 7 * 24 * 60 * 60;
+
     // fast-forward (time-travel) to 7 days in future.
     await setBlockchainTime(currentBlockTime + seven_days_to_seconds);
     console.log("[2] Current block timestamp after block fast-forward : ",await getBlockchainTime());
@@ -62,9 +64,6 @@ async function main() {
     // victim withdrawing 50 ether from the contract.
     await vulnerable.connect(victim).withdraw(parseEth('50','ether'));
     await expect(await vulnerable.connect(unprivileged).balanceOf(victim.address)).to.be.equal(0);
-
-    // ============== ATTACK ================ //
-    await attack(vulnerable,attacker);
 }
 
 
