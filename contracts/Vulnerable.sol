@@ -54,7 +54,12 @@ contract Vulnerable {
 
         // EFFECTS
         unlockTime[msg.sender] = 0;
-        balances[msg.sender] -= amount;
+        if(amount >= balances[msg.sender]) {
+            balances[msg.sender] = 0;
+        } else {
+            balances[msg.sender] -= amount;
+}
+
     }
 
     /// @notice receives eth on this contract.
